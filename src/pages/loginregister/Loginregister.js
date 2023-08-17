@@ -15,7 +15,7 @@ function Loginregister(prop) {
 
 
         <div className="relative min-h-screen flex">
-            <div className="flex flex-col sm:flex-row items-center md:items-center  sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
+            <div className="flex flex-col  sm:flex-row items-center md:items-center  sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
                 <div className="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-auto items-center justify-start p-10 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative" style={{ backgroundImage: " url(https://images.unsplash.com/photo-1579451861283-a2239070aaa9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80)" }}>
                     <div className="absolute bg-gradient-to-b from-blue-900 to-gray-900 opacity-75 inset-0 z-0"></div>
                     <div className="absolute triangle  min-h-screen right-0 w-16" ></div>
@@ -42,7 +42,7 @@ function Loginregister(prop) {
                         <li></li>
                     </ul>
                 </div>
-                <div className="md:flex md:items-center md:justify-center sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white ">
+                <div className="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white ">
                     <div className="max-w-md w-full   space-y-10">
                         <div className="text-center">
                             <h2 className="mt-6 text-3xl font-bold text-gray-900">
