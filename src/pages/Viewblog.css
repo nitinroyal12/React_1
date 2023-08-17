@@ -1,0 +1,28 @@
+@font-face {
+    font-family:castro ;
+    src: url(../fonts/Tinos-Bold.ttf);
+}
+
+@font-face {
+    font-family:karla ;
+    src: url(../fonts/Karla-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: slab;
+    src: url(../fonts/RobotoSlab-VariableFont_wght.ttf);
+}
+
+.cast{
+    font-family: castro;
+    
+}
+
+.karla{
+    font-family: lora;
+    
+}
+
+.slab{
+    font-family: slab;
+    font-weight: 600;
+}
