@@ -33,17 +33,18 @@ function App() {
     if (!localStorage.getItem("key")) {
       navigate("/loginregister")
     } else if (localStorage.getItem("key")) {
-       if(location.pathname === "" || location.pathname === "/"){
-        navigate("/home")
-       }else if(location.pathname === "/blog"){
-        navigate("/blog")
-       }else if(location.pathname === "/addblog"){
-        navigate("/addblog")
-       }else if(location.pathname === "/profile"){
-        navigate("/profile")
-       }else if(location.pathname === "/viewblog"){
-        navigate("/home")
-       }
+      //  if(location.pathname === "" || location.pathname === "/"){
+      //   navigate("/home")
+      //  }else if(location.pathname === "/blog"){
+      //   navigate("/blog")
+      //  }else if(location.pathname === "/addblog"){
+      //   navigate("/addblog")
+      //  }else if(location.pathname === "/profile"){
+      //   navigate("/profile")
+      //  }else if(location.pathname === "/viewblog"){
+      //   navigate("/home")
+      //  }
+      navigate("/home")
     }
 
     else if (location.pathname === "" || location.pathname === "/") {

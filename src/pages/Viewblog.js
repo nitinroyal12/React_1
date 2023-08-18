@@ -34,9 +34,9 @@ function Viewblog(){
                         <div className="font-bold text-2xl mb-2 pb-5 text-center py-12 font-mono sm:text-3xl md:text-4xl lg:text-5xl ">{item.title}</div>
             <img className="w-full px-2 md:px-7  lg:px-20" src={item.img} alt="Sunset in the mountains" />
 
-            <p className="text-blue-900  py-10  text-sm slab text-center md:text-1xl lg:text-2xl">{item.subtitle} </p>
+            <p className="text-blue-900  py-10  text-base slab text-center md:text-xl lg:text-2xl">{item.subtitle} </p>
 
-            <p className="  text-sm px-10 karla md:text-1xl lg:text-2xl">{item.about}</p>
+            <p className="  text-base px-10 karla sm:text-xl md:text-2xl lg:text-2xl">{item.about}</p>
                         </>
                     );
                 })

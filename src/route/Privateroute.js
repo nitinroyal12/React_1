@@ -1,12 +1,26 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
-import Blog from "../pages/Blog";
-import Addblog from "../pages/Addblog";
-import Profile from "../pages/Profile";
-import Viewblog from "../pages/Viewblog";
 import Header from "../header/Header";
 import Footer from "../header/Footer";
+import Loader2 from "../loader/loader2";
+import  loadable from "@loadable/component";
+const Home = loadable(() => import("../pages/Home"), {
+    fallback: <Loader2 />,
+  });
+  const Blog = loadable(() => import("../pages/Blog"), {
+    fallback: <Loader2 />,
+  });
+  const Addblog = loadable(() => import("../pages/Addblog"), {
+    fallback: <Loader2 />,
+  });
+  const Profile = loadable(() => import("../pages/Profile"), {
+    fallback: <Loader2 />,
+  });
+  const Viewblog = loadable(() => import("../pages/Viewblog"), {
+    fallback: <Loader2 />,
+  });
+
+
 
 function Privateroute() {
     return (

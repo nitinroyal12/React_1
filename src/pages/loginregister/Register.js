@@ -4,12 +4,15 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import Loader from "../../loader/loader";
 
 function Register(prop) {
 
     const [toggle, settoggle] = useState(true);
     const [toggle1, settoggle1] = useState(true);
     const [data,setdata]=useState([])
+    
+    const [loader,setloader]= useState(false)
 
     const [user, setuser] = useState({
         name: null,
@@ -27,7 +30,7 @@ function Register(prop) {
 
     
     const email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
+    var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     const handlesubmit = () => {
         if (user.name === null) {
             toast("Please Enter Name")
@@ -47,10 +50,14 @@ function Register(prop) {
             toast("You Are Already User")          
         } else if (user.password != user.repassword) {
             toast("Password Does not Match")
+        }else if ( !regularExpression.test(user.password)) {
+            toast("Create Strong Password using (Min 6 Letter using one Number ,using one Alphabet and using one simble (!@#$%^&*) )")
         } else if (user.name != null && user.mail != null && user.password != null && user.repassword != null && filterdata.length == 0  ) {
+            setloader(true)
             axios.post("https://blog-server-mzr9.onrender.com/user", user).then((res) => {
                 prop.settoggle(true);
                 toast("Register Successful")
+                setloader(false)
             }).catch((err) => {
                 console.log(err);
             })
@@ -63,9 +70,14 @@ function Register(prop) {
         }).catch((err)=>{
             console.log(err);
         })
+        setTimeout(()=>{
+            setloader(false)
+        },5000)
     },[])
 
     return (
+        <>
+        
         <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" value="true" />
             <div className="relative">
@@ -124,7 +136,10 @@ function Register(prop) {
 
             </div>
             <div>
-                <input type="button" className="w-full text-center flex justify-center bg-gradient-to-r from-indigo-500 to-blue-600  hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500" onClick={handlesubmit} value="Register" />
+                {
+                    loader ? <Loader/> 
+                    :
+                    <input type="button" className="w-full text-center flex justify-center bg-gradient-to-r from-indigo-500 to-blue-600  hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500" onClick={handlesubmit} value="Register" />}
 
 
             </div>
@@ -134,6 +149,8 @@ function Register(prop) {
                     in</Link>
             </p>
         </form>
+
+        </>
     );
 };
 

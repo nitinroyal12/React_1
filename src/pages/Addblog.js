@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import mycontext from "../context/mycontext";
+import Loader from "../loader/loader";
 
 
 
@@ -14,12 +15,13 @@ function Addblog() {
     const { changedata, setchangedata } = useContext(mycontext);
     const [toggle, settoggle] = useState(changedata);
     const [blogdata, setblogdata] = useState([]);
+    const [loading, setloading] = useState(false)
     const [data, setdata] = useState({
         title: "",
         subtitle: '',
         about: null,
         img: null,
-        userdata:null
+        userdata: null
     })
 
 
@@ -56,11 +58,14 @@ function Addblog() {
             toast("Please Upload file")
         }
         else if (data.title != null && data.subtitle != null && data.about != null && data.img != null) {
+            setloading(true)
             axios.post("https://blog-server-mzr9.onrender.com/data", data).then((res) => {
                 Navigate("/home")
                 toast.success("Posted Successful")
+                setloading(false)
             }).catch((err) => {
                 console.log(err);
+                setloading(false)
             });
         }
 
@@ -85,18 +90,12 @@ function Addblog() {
 
     useEffect(() => {
         getdata();
-        const userid =localStorage.getItem('user')
+        const userid = localStorage.getItem('user')
         data.userdata = `0${userid}`
 
-       const toggledata = ()=>{
-        if(location.pathname === "/addblog"){
-            return setchangedata(changedata)
-        }else if(location.pathname != "/addblog"){
-            return setchangedata(true)
-        }
-       }
-       console.log(toggledata());
-        
+        setTimeout(() => {
+            setloading(false)
+        }, 3000)
     }, []);
 
 
@@ -149,35 +148,42 @@ function Addblog() {
                                 <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                             </div>
                             {
-                                            toggle ? <input id="dropzone-file" type="file" className="hidden" onChange={(e) => {
-                                                const reader = new FileReader()
-                                                reader.readAsDataURL(e.target.files[0])
-                                                reader.onloadend = () => {
-                                                    setdata((prev) => ({ ...prev, img: reader.result }))
-                                                }
-                                            }
-                                            }
-                                            /> :
+                                toggle ? <input id="dropzone-file" type="file" className="hidden" onChange={(e) => {
+                                    const reader = new FileReader()
+                                    reader.readAsDataURL(e.target.files[0])
+                                    reader.onloadend = () => {
+                                        setdata((prev) => ({ ...prev, img: reader.result }))
+                                    }
+                                }
+                                }
+                                /> :
 
-                                                <input id="dropzone-file" type="file" className="hidden" onChange={(e) => {
-                                                    const reader = new FileReader()
-                                                    reader.readAsDataURL(e.target.files[0])
-                                                    reader.onloadend = () => {
-                                                        setchange((prev) => ({ ...prev, img: reader.result }))
-                                                    }
-                                                }
-                                                }
-                                                />
+                                    <input id="dropzone-file" type="file" className="hidden" onChange={(e) => {
+                                        const reader = new FileReader()
+                                        reader.readAsDataURL(e.target.files[0])
+                                        reader.onloadend = () => {
+                                            setchange((prev) => ({ ...prev, img: reader.result }))
                                         }
+                                    }
+                                    }
+                                    />
+                            }
                         </label>
                     </div>
 
 
-                    
+
                     <div>
 
 
-                        <Link className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={() => { toggle ? handlepost() : handleedit() }}>{toggle ? "Post Blog" : "Edit Post"}</Link>
+                        {toggle ? <>{loading ? <Loader/> :
+                            <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={() => handlepost()}> Post Blog</button>}
+                        </>
+                            :
+                            <>
+                                <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={() => handleedit()}>Edit Post</button>
+                            </>
+                        }
 
 
                     </div>
