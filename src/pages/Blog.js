@@ -13,6 +13,7 @@ function Blog() {
 
 
 
+
     const location = useLocation()
     const Navigate = useNavigate()
     const [toggle, settoggle] = useState(true)
@@ -21,7 +22,6 @@ function Blog() {
 
 
     const handledelete = (items) => {
-        console.log(items);
         axios.delete("https://blog-server-mzr9.onrender.com/data/" + items.id).then((res) => {
             console.log(res);
             getdata()
@@ -122,7 +122,7 @@ function Blog() {
                                                                 <FontAwesomeIcon icon={faEye} onClick={() => handleview(item)} />
                                                             </button>
                                                             <button href="#" className="text-gray-400 hover:text-black  mx-2">
-                                                                <FontAwesomeIcon icon={faPen} onClick={() =>{ editpost(item);setchangedata(false)}} />
+                                                                <FontAwesomeIcon icon={faPen} onClick={() =>{setchangedata(false);editpost(item)}} />
                                                             </button>
                                                             <button href="#" className="text-gray-400 hover:text-black  ml-2">
                                                                 <FontAwesomeIcon icon={faTrash} onClick={() => handledelete(item)} />

@@ -12,6 +12,7 @@ function Addblog() {
     const location = useLocation();
     const Navigate = useNavigate();
 
+
     const { changedata, setchangedata } = useContext(mycontext);
     const [toggle, settoggle] = useState(changedata);
     const [blogdata, setblogdata] = useState([]);
@@ -73,8 +74,8 @@ function Addblog() {
 
 
     const handleedit = () => {
+        setloading(true)
         const item = location.state.check
-        console.log(item);
         axios.patch("https://blog-server-mzr9.onrender.com/data/" + location.state.check.id, {
             title: change.title ? change.title : item.title,
             subtitle: change.subtitle ? change.subtitle : item.subtitle,
@@ -83,10 +84,13 @@ function Addblog() {
         }).then((res) => {
             Navigate('/blog')
             setchangedata(true)
+            setloading(false)
         }).catch((err) => {
             console.log(err);
+            setloading(false)
         })
     };
+
 
     useEffect(() => {
         getdata();
@@ -110,19 +114,19 @@ function Addblog() {
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm ">
                 <form className="space-y-6" action="#" method="POST">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Blog Title</label>
+                        <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">Blog Title</label>
                         <div className="mt-2">
-                            <input id="title" name="title" type="text" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => toggle ? setdata((prev) => ({ ...prev, title: e.target.value.toUpperCase() })) : setchange((prev) => ({ ...prev, title: e.target.value.toUpperCase() }))} />
+                            <input id="title" name="title" type="text"  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => toggle ? setdata((prev) => ({ ...prev, title: e.target.value.toUpperCase() })) : setchange((prev) => ({ ...prev, title: e.target.value.toUpperCase() }))} />
                         </div>
                     </div>
 
                     <div>
                         <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Sub Title</label>
+                            <label htmlFor="subtitle" className="block text-sm font-medium leading-6 text-gray-900">Sub Title</label>
 
                         </div>
                         <div className="mt-2">
-                            <input id="subtitle" name="subtitle" type="text" autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => toggle ? setdata((prev) => ({ ...prev, subtitle: e.target.value })) : setchange((prev) => ({ ...prev, subtitle: e.target.value }))} />
+                            <input id="subtitle" name="subtitle" type="text" autoComplete="current-password"  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => toggle ? setdata((prev) => ({ ...prev, subtitle: e.target.value })) : setchange((prev) => ({ ...prev, subtitle: e.target.value }))} />
                             <div className="flex justify-between">
                                 <p className="mt-3 text-sm leading-6 text-gray-600 text-right">Write 50 Words in Subtitle. </p>
                                 <p className="mt-3 text-sm leading-6 text-gray-600 text-right">{(data.subtitle).length + '/1000'}</p>
@@ -181,7 +185,8 @@ function Addblog() {
                         </>
                             :
                             <>
-                                <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={() => handleedit()}>Edit Post</button>
+                               {loading ? <Loader/> :
+                                <input type="button" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={() => handleedit()} value="Edit Post"/>}
                             </>
                         }
 
@@ -197,3 +202,4 @@ function Addblog() {
 }
 
 export default Addblog;
+

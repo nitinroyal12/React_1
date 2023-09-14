@@ -19,6 +19,7 @@ function Login(prop) {
         username: null,
         userpass: null
     });
+    console.log(finduser);
     const filteruser = finduser.filter((item) => {
         if (item.mail === user.username && item.password === user.userpass) {
             return item;

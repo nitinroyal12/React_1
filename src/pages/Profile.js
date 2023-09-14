@@ -64,7 +64,7 @@ function Profile() {
                                     <div className="p-4 md:p-12 text-center lg:text-left">
 
                                         <div className="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-                                            style={{ backgroundImage: `url(${item.img})` }}></div>
+                                            style={{ backgroundImage: `url(${item.img ? item.img : "https://source.unsplash.com/MP0IUfwrn0A"})` }}></div>
                                         <div className="block text-right">
                                             <FontAwesomeIcon className="pr-10 text-green-700" icon={faPen} onClick={() => settoggel(!toggle)} />
 
@@ -126,54 +126,60 @@ function Profile() {
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 
                         <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                            <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                <h3 className="text-center text-2xl font-sans font-bold">Edit Profile</h3>
-
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
-                                    <div className="mt-2">
-                                        <input id="title" name="title" type="text" required className=" px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, name: e.target.value.toUpperCase() }))} />
+                           {
+                            data12.map((item)=>{
+                                return(
+                                    <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                    <h3 className="text-center text-2xl font-sans font-bold">Edit Profile</h3>
+    
+                                    <div>
+                                        <label htmlFor="Name" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
+                                        <div className="mt-2">
+                                            <input id="Name" name="Name" type="text" defaultValue={item.name ? item.name : ''} required className=" px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, name: e.target.value.toUpperCase() }))} />
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Location</label>
-                                    <div className="mt-2">
-                                        <input id="title" name="title" type="text" required className=" px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, add: e.target.value }))} />
+    
+                                    <div>
+                                        <label htmlFor="Location" className="block text-sm font-medium leading-6 text-gray-900">Location</label>
+                                        <div className="mt-2">
+                                            <input id="Location" name="Location" type="text" defaultValue={item.add ? item.add : ''} required className=" px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, add: e.target.value }))} />
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Occupation</label>
-                                    <div className="mt-2">
-                                        <input id="title" name="title" type="text" required className=" px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, occupation: e.target.value }))} />
+    
+                                    <div>
+                                        <label htmlFor="Occupation" className="block text-sm font-medium leading-6 text-gray-900">Occupation</label>
+                                        <div className="mt-2">
+                                            <input id="Occupation" name="Occupation" type="text" defaultValue={item.occupation ? item.occupation : ''} required className=" px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, occupation: e.target.value }))} />
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">DOB</label>
-                                    <div className="mt-2">
-                                        <input id="title" name="title" type="date" required className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, dob: e.target.value }))} />
+    
+                                    <div>
+                                        <label htmlFor="dob" className="block text-sm font-medium leading-6 text-gray-900">DOB</label>
+                                        <div className="mt-2">
+                                            <input id="dob" name="dob" type="date" defaultValue={item.dob ? item.dob : ''} required className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={(e) => setprofile((prev) => ({ ...prev, dob: e.target.value }))} />
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload file</label>
-                                    <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" onChange={(e) => {
-                                        const reader = new FileReader()
-                                        reader.readAsDataURL(e.target.files[0])
-                                        reader.onloadend = () => {
-                                            setprofile((prev) => ({ ...prev, img: reader.result }))
+    
+                                    <div>
+                                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload file</label>
+                                        <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" onChange={(e) => {
+                                            const reader = new FileReader()
+                                            reader.readAsDataURL(e.target.files[0])
+                                            reader.onloadend = () => {
+                                                setprofile((prev) => ({ ...prev, img: reader.result }))
+                                            }
                                         }
-                                    }
-                                    } />
-                                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG or JPG  .</p>
+                                        } />
+                                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG or JPG  .</p>
+                                    </div>
+    
+    
+    
+    
                                 </div>
-
-
-
-
-                            </div>
+                                );
+                            })
+                           }
                             {
                                 data12.map((item) => {
                                     return (

@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "../loader/loader";
 
 
 
@@ -16,6 +17,7 @@ function Header() {
     const [toggle1, settoggle1] = useState(true)
     const [modal, setmodal] = useState(false)
     const [pass, setpass] = useState(true)
+    const [loading,setloading]=useState(false)
     const [password, setpassword] = useState({
         pass: null,
     })
@@ -47,20 +49,28 @@ function Header() {
 
 
     const confirmdelete = (item) => {
-        
+        setloading(true)
         if (item.password == password.pass) {
             axios.delete("https://blog-server-mzr9.onrender.com/user/" + item.id).then((res) => {
                 localStorage.clear();
                 Navigate("/loginregister")
+                toast("Account deleted")
+                setloading(false)
             }).catch((err) => {
                 console.log(err);
             });
+        }else{
+            toast("Wrong Password")
+            setloading(false)
         }
 
     }
 
     useEffect(() => {
         getdata()
+        setTimeout(()=>{
+            setloading(false);
+        },3000)
     }, [])
 
     return (
@@ -132,7 +142,7 @@ function Header() {
                 <div className={`sm:hidden ${toggle1 ? "hidden" : "block"}`} id="mobile-menu">
                     <div className="space-y-1 px-2 pb-3 pt-2 ">
 
-                        <Link to="/home" className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Home</Link>
+                        <Link to="/home" className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page" >Home</Link>
                         <Link to="/blog" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Blog</Link>
                         <Link to="/addblog" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Add Blog</Link>
 
@@ -185,7 +195,10 @@ function Header() {
                                         </div>
                                     </div>
                                     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                        <button type="button" className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={() => confirmdelete(item)}>Delete</button>
+                                        {loading ? <Loader/>
+                                          :
+                                            <button type="button" className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={() => confirmdelete(item)}>Delete</button>
+                                        }
                                         <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={() => setmodal(false)}>Cancel</button>
                                     </div>
                                 </div>
